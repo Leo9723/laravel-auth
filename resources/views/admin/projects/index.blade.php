@@ -20,8 +20,8 @@
       <td>{{ $project['title'] }}</td>
       <td>{{ $project['description'] }}</td>
       <td>
-        <button><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">Visualizza</a></button>
-        <button><a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">Modifica</a></button>
+        <button class="btn btn-success"><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">Visualizza</a></button>
+        <button class="btn btn-warning"><a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">Modifica</a></button>
         <form action="{{ route('admin.projects.destroy', ['project' => $project->id]) }}" method="POST">
                @csrf
                @method('DELETE')

@@ -50,7 +50,7 @@ class ProjectController extends Controller
 
         $newProject->save();
 
-        return redirect()->route('admin.projects.index', $newProject->id);
+        return redirect()->route('admin.projects.show', $newProject->id);
     }
 
     /**
