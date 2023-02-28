@@ -29,7 +29,7 @@
   </tbody>
 </table>
 
-<button>Aggiungi Progetto</button>
+<button><a href="{{ route('admin.projects.create') }}">Aggiungi un progetto</a></button>
 
 
 @endsection

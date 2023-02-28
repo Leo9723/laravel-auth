@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Validator;
 
 
 class ProjectController extends Controller
@@ -28,7 +29,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -39,7 +40,17 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $form_data = $this->validation($request->all());
+
+
+
+        $newProject = new Project();
+
+        $newProject->fill($form_data);
+
+        $newProject->save();
+
+        return redirect()->route('admin.projects.index', $newProject->id);
     }
 
     /**
@@ -86,4 +97,26 @@ class ProjectController extends Controller
     {
         //
     }
+
+    private function validation($data){
+
+        $validator = Validator::make($data, [
+            'title' => 'required|max:30',
+            'description' => 'required|max:200',
+        ],
+        [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.max' => 'Il titolo è superiore a :max caratteri',
+            'description.required' => 'La descrizione è obbligatoria',
+            'description.max' => 'La descrizione superiore a :max caratteri',
+        ]
+        )->validate();
+
+        return $validator;
+
+
+
+    }
+
+
 }
