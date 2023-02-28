@@ -22,7 +22,11 @@
       <td>
         <button><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">Visualizza</a></button>
         <button><a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">Modifica</a></button>
-        <button>E</button>
+        <form action="{{ route('admin.projects.destroy', ['project' => $project->id]) }}" method="POST">
+               @csrf
+               @method('DELETE')
+               <button type="submit" class="confirm-delete-project btn btn-danger" data-title="{{ $project->title }}">Elimina</button>
+            </form>
       </td>
     </tr>
     @endforeach
@@ -31,5 +35,5 @@
 
 <button><a href="{{ route('admin.projects.create') }}">Aggiungi un progetto</a></button>
 
-
+@include('admin.projects.modal_delete')
 @endsection

@@ -114,9 +114,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($project)
     {
-        //
+        $project = Project::find($project);
+
+        $project->delete();
+        return redirect()->route('admin.projects.index');
     }
 
     private function validation($data){
