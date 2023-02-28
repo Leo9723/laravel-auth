@@ -20,8 +20,8 @@
       <td>{{ $project['title'] }}</td>
       <td>{{ $project['description'] }}</td>
       <td>
-        <button>V</button>
-        <button>M</button>
+        <button><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">Visualizza</a></button>
+        <button><a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">Modifica</a></button>
         <button>E</button>
       </td>
     </tr>

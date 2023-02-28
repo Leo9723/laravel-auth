@@ -59,9 +59,16 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($project)
     {
-        //
+        $project = Project::find($project);
+
+
+        $data = [
+            'single' => $project
+        ];
+
+        return view('admin.projects.show', $data);
     }
 
     /**
@@ -70,9 +77,17 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($project)
     {
-        //
+        $project = Project::find($project);
+
+        if($project){
+            $data = [
+                'project' => $project
+            ];
+
+            return view ('admin.projects.edit', $data);
+        };
     }
 
     /**
@@ -82,9 +97,15 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, $project)
     {
-        //
+        $project = Project::find($project);
+
+        $form_data = $this->validation($request->all());
+
+        $project->update($form_data);
+
+        return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
 
     /**
