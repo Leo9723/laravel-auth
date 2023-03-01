@@ -25,7 +25,7 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'title' => ['required', 'unique:projects', 'max:30'],
-            'description' => ['required', 'unique:projects', 'max:200']
+            'description' => ['required', 'max:200']
         ];
     }
     public function messages()
@@ -35,6 +35,7 @@ class StoreProjectRequest extends FormRequest
             'description.required'  => 'La descrizione è obbligatoria',
             'title.max' => 'Il titolo è troppo lungo',
             'description.max'  => 'La descrizione è troppo lunga',
+            'title.unique' => 'Il titolo è già utilizzato in un altro progetto',
         ];
     }
 }

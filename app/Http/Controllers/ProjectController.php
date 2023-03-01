@@ -59,16 +59,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show($project)
+    public function show(Project $project)
     {
-        $project = Project::find($project);
-
-
-        $data = [
-            'single' => $project
-        ];
-
-        return view('admin.projects.show', $data);
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -82,11 +75,7 @@ class ProjectController extends Controller
         $project = Project::find($project);
 
         if($project){
-            $data = [
-                'project' => $project
-            ];
-
-            return view ('admin.projects.edit', $data);
+            return view('admin.projects.edit', compact('project'));
         };
     }
 
@@ -105,7 +94,7 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
-        return redirect()->route('admin.projects.show', ['project' => $project->id]);
+        return redirect()->route('admin.projects.index', ['project' => $project->id])->with('message', 'Progetto modificato correttamente');
     }
 
     /**
@@ -119,7 +108,7 @@ class ProjectController extends Controller
         $project = Project::find($project);
 
         $project->delete();
-        return redirect()->route('admin.projects.index');
+        return redirect()->route('admin.projects.index')->with('message', 'Progetto cancellato correttamente');
     }
 
 

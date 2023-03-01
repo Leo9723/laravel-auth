@@ -11,29 +11,33 @@
 <table class="table table-dark table-hover table-bordered">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Titolo</th>
       <th scope="col">Descrizione</th>
       <th scope="col">azioni</th>
     </tr>
   </thead>
   <tbody>
-  @foreach($projects as $project)
+  @forelse($projects as $project)
     <tr>
-      <th scope="row">{{ $project['id'] }}</th>
       <td>{{ $project['title'] }}</td>
       <td>{{ $project['description'] }}</td>
       <td>
-        <button class="btn btn-success"><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">Visualizza</a></button>
-        <button class="btn btn-warning"><a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">Modifica</a></button>
+        <button class="btn btn-success"><a href="{{ route('admin.projects.show', ['project' => $project->id]) }}"><i class="fa-solid fa-eye"></i></a></button>
+        <button class="btn btn-warning"><a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}"><i class="fa-solid fa-pencil"></i></a></button>
         <form action="{{ route('admin.projects.destroy', ['project' => $project->id]) }}" method="POST">
                @csrf
                @method('DELETE')
-               <button type="submit" class="confirm-delete-project btn btn-danger" data-title="{{ $project->title }}">Elimina</button>
+               <button type="submit" class="confirm-delete-project btn btn-danger" data-title="{{ $project->title }}" data-bs-toggle="modal" data-bs-target="#delete-modal-project" data-projectid="{{ $project->id }}"><i class="fa-solid fa-trash-can"></i></button>
             </form>
       </td>
     </tr>
-    @endforeach
+    @empty
+    <tr>
+    <td scope="row">
+      Nessun progetto presente, aggiungine uno da <a href="{{ route('admin.projects.create') }}">qui</a>
+    </td>
+    </tr>
+    @endforelse
   </tbody>
 </table>
 
