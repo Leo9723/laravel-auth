@@ -20,8 +20,8 @@ class ProjectSeeder extends Seeder
 
             $newProject = new Project();
 
-            $newProject->title = $faker->word();
-            $newProject->description = $faker->word();
+            $newProject->title = $faker->word(30);
+            $newProject->description = $faker->text(200);
 
             $newProject->save();
 
