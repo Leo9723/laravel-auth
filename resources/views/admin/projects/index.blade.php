@@ -3,7 +3,11 @@
 
 
 <h1>Progetti</h1>
-
+@if(session()->has('message'))
+    <div class="bg-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
 <table class="table table-dark table-hover table-bordered">
   <thead>
     <tr>

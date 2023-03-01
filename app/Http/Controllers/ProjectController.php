@@ -40,7 +40,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $form_data = $this->validation($request->all());
+        $form_data = $request->validated();
 
 
 
@@ -50,7 +50,7 @@ class ProjectController extends Controller
 
         $newProject->save();
 
-        return redirect()->route('admin.projects.show', $newProject->id);
+        return redirect()->route('admin.projects.index', $newProject->id)->with('message', 'Progetto aggiunto correttamente');
     }
 
     /**
@@ -101,7 +101,7 @@ class ProjectController extends Controller
     {
         $project = Project::find($project);
 
-        $form_data = $this->validation($request->all());
+        $form_data = $request->validated();
 
         $project->update($form_data);
 
@@ -120,26 +120,6 @@ class ProjectController extends Controller
 
         $project->delete();
         return redirect()->route('admin.projects.index');
-    }
-
-    private function validation($data){
-
-        $validator = Validator::make($data, [
-            'title' => 'required|max:30',
-            'description' => 'required|max:200',
-        ],
-        [
-            'title.required' => 'Il titolo è obbligatorio',
-            'title.max' => 'Il titolo è superiore a :max caratteri',
-            'description.required' => 'La descrizione è obbligatoria',
-            'description.max' => 'La descrizione superiore a :max caratteri',
-        ]
-        )->validate();
-
-        return $validator;
-
-
-
     }
 
 
